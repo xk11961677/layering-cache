@@ -145,7 +145,7 @@ public class RedisCache extends AbstractValueAdaptingCache {
         }
         // 先获取缓存，如果有直接返回
         T result = redisClient.get(redisCacheKey.getKey(), resultType);
-        if (result != null || redisClient.hasKey(redisCacheKey.getKey())) {
+        if (result != null && redisClient.hasKey(redisCacheKey.getKey())) {
             // 刷新缓存
             refreshCache(redisCacheKey, resultType, valueLoader, result);
             return (T) fromStoreValue(result);
